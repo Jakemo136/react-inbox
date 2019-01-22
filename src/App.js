@@ -17,13 +17,17 @@ class App extends Component {
     this.setState({messages: messagesJson})
   }
 
+  toggleSelected = (messageId) => {
+
+  }
+
   render() {
     return (
       <div className="App">
           <Navbar/>
         <div className="container">
           <Toolbar />
-          <MessageList messages={this.state.messages}/>
+          <MessageList messages={this.state.messages} toggleSelected={this.toggleSelected}/>
         </div>
       </div>
     );

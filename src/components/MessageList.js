@@ -1,7 +1,7 @@
 import React from 'react'
 import Message from './Message'
 
-const MessageList = ({messages}) => {
+const MessageList = ({messages, toggleSelected}) => {
   console.log(messages)
   return (
     <div>
@@ -13,6 +13,7 @@ const MessageList = ({messages}) => {
         labels={labels}
         body={body}
         key={id}
+        toggleSelected={toggleSelected}
       />)}
     </div>
   )

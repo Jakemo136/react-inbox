@@ -1,32 +1,14 @@
 import React from 'react';
 
-const Message = ({subject, readState, starredState, selectedState, labels, body}) => {
+const Message = ({subject, readState, starredState, selectedState, labels, body, toggleSelected}) => {
 
-  const selectedMessage = (selectedState, readState) => {
-    
-    let classNameText = ""
-
-    if (selectedState) {
-      if (readState) {
-        classNameText="row message unread selected"
-      } 
-        classNameText="row message selected"
-      }
-    else if (!selectedState) {
-      if (readState) {
-        classNameText="row message unread"
-      } 
-        classNameText="row message"
-      }
-    return classNameText
-  }
 
   return (
-    <div className={selectedMessage}>
+    <div className={("row message " + (readState ? 'read' : 'unread') + " " + (selectedState ? 'selected' : ''))}>
       <div className="col-xs-1">
         <div className="row">
           <div className="col-xs-2">
-            <input type="checkbox" checked={(selectedState ? 'checked' : '')}/>
+            <input type="checkbox" checked={selectedState ? 'checked' : ''} onChange={e => toggleSelected()}/>
           </div>
           <div className="col-xs-2">
             <i className={("star fa fa-star" + (starredState ? '' : '-o'))}></i>
