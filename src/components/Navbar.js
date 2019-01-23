@@ -4,7 +4,7 @@ const Navbar = () => {
   return (
     <div>
       <nav className="navbar navbar-light" style={{backgroundColor: '#00b585'}}>
-        <span className="navbar-brand mb-0 h1">Reackt Inboox</span>
+        <span className="navbar-brand mb-0 h1">ReacktStore InbooxShalf</span>
       </nav>
     </div>
   )

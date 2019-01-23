@@ -1,8 +1,8 @@
 import React from 'react'
 import Message from './Message'
 
-const MessageList = ({messages, toggleSelected}) => {
-  console.log(messages)
+const MessageList = ({messages, toggleSelected, toggleStarred}) => {
+  // console.log(messages)
   return (
     <div>
       {messages.map(({selected, subject, read, starred, labels, body, id}) => <Message 
@@ -12,8 +12,10 @@ const MessageList = ({messages, toggleSelected}) => {
         subject={subject}
         labels={labels}
         body={body}
+        messageId={id}
         key={id}
         toggleSelected={toggleSelected}
+        toggleStarred={toggleStarred}
       />)}
     </div>
   )
