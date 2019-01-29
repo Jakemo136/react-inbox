@@ -48,7 +48,6 @@ class App extends Component {
     this.setState({messages : messagesList})
   }
   
-  
   render() {
     return (
       <div className="App">
