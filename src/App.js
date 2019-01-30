@@ -11,7 +11,8 @@ class App extends Component {
   state = {
     messages: [],
     selected: 'fa fa-minus-square-o',
-    composeView: false
+    composeView: false,
+    showBody: false
   }
 
   async componentDidMount() {
@@ -122,11 +123,14 @@ class App extends Component {
     this.setState({messages : responseJson})
   }
   
-  markAsRead = async () => {
+  markAsRead = async (msgId) => {
     const newState = this.state.messages
     const selectedMsgs = newState.filter(message => message.selected && !message.read)
-    const msgIds = selectedMsgs.map(message=>message.id)
-    
+    let msgIds = selectedMsgs.map(message=>message.id)
+
+    if (msgIds.length === 0 && msgId.length !== 0) {
+      msgIds = [msgId]
+    }
     if (msgIds.length === 0) {
       return
     }
@@ -255,9 +259,31 @@ class App extends Component {
     this.setState({messages : responseJson})
   }
 
-  toggleCompose = (e) => {
+  submitMessage = async (e) => {
+    e.preventDefault()
+    const subject = e.target.subject.value
+    const body = e.target.body.value
+    const bodyJson = JSON.stringify({
+      "subject": subject,
+      "body": body
+    })
+    const response = await fetch(API, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: bodyJson
+    })
+    const responseJson = await response.json()
+    this.setState({messages: [...this.state.messages, responseJson]})
+  }
+
+  toggleCompose = () => {
     this.setState({composeView: !this.state.composeView})
   }
+
+  
 
 
   render() {
@@ -275,11 +301,12 @@ class App extends Component {
             removeLabel={this.removeLabel}
             deleteMessage={this.deleteMessage} 
             toggleCompose={this.toggleCompose} />
-          {this.state.composeView ? <Compose /> : ''}
+          {this.state.composeView ? <Compose submitMessage={this.submitMessage} toggleCompose={this.toggleCompose}/> : ''}
           <MessageList 
             messages={this.state.messages} 
             toggleSelected={this.toggleSelected}
-            toggleStarred={this.toggleStarred} />
+            toggleStarred={this.toggleStarred}
+            markAsRead={this.markAsRead} />
         </div>
       </div>
     );
