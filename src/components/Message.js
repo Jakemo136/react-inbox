@@ -2,7 +2,6 @@ import React from 'react';
 
 const Message = ({subject, readState, starredState, selectedState, labels, body, toggleSelected, messageId, toggleStarred}) => {
 
-
   return (
     <div className={("row message " + (readState ? 'read' : 'unread') + " " + (selectedState ? 'selected' : ''))}>
       <div className="col-xs-1">
@@ -16,6 +15,7 @@ const Message = ({subject, readState, starredState, selectedState, labels, body,
         </div>
       </div>
       <div className="col-xs-11">
+      {labels.map((label, i)=> <span className="label label-warning" key={i}>{label}</span>)}
         <a href="/">
           {subject}
         </a>
